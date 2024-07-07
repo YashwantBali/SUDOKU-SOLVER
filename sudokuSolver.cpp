@@ -161,9 +161,8 @@ class SudokuGrid{
 
 class SudokuSolver{
 
-	int recursiveCount; //Stats variable
-	SudokuGrid grid; //The grid object
-
+	int recursiveCount; 
+	SudokuGrid grid; 
 	public:SudokuSolver(){
 		recursiveCount=0;
 
@@ -182,7 +181,6 @@ class SudokuSolver{
 	bool cellValueValid(int row, int col, int keyValue){
 		int rowIter, colIter;
 
-		//Checking if value exists in same column
 		for(rowIter=0; rowIter<9; rowIter++){
 			if(rowIter == row)
 				continue;
@@ -191,7 +189,6 @@ class SudokuSolver{
 				return false;
 		}
 
-		//Checking if value exists in same row
 		for(colIter=0; colIter<9; colIter++){
 			if(colIter == col)
 				continue;
@@ -200,11 +197,11 @@ class SudokuSolver{
 				return false;
 		}
 
-		//Checking if value exists in the same 3x3 square block
+		
 		if( !ThreeByThreeGridValid(row, col, keyValue) )
 			return false;
 
-		// It is a valid key
+	
 		return true;
 	}
 
@@ -258,50 +255,37 @@ class SudokuSolver{
 	private:
 	bool singleCellSolve(){
 
-		statsIncrement(); //This is used to see how many times the func is called.
-
-		// If the grid full and correct return true and break the recursive calls
+		statsIncrement(); 
 		if(gridSolved())
 			return true;
-
-        //statsPrint();
-        //displayGrid();
-        //cin.get();
 
 		int rowIter, colIter, keyValueIter;
 
 		for(rowIter=0; rowIter<9; rowIter++){
 			for(colIter=0; colIter<9; colIter++){
-
-				// Check empty cells and do the rest only for them
-				// If cell's value is 0, it is empty
 				if(grid.getCellValue(rowIter, colIter) == 0){
 
-					// Check all the possible numbers as keys
+					
 					for(keyValueIter=1; keyValueIter<10; keyValueIter++){
 
 						if(cellValueValid(rowIter, colIter, keyValueIter)){
 
-							// Assign the key value
+							
 							grid.setCellValue(rowIter, colIter, keyValueIter);
 
-							// Calling recursive function
 							if(singleCellSolve())
 								return true;
 
-							// If grid is not solved, the key is not correct one, delete it and continue
 							grid.setCellValue(rowIter, colIter, 0);
 						}
 					}
 
-					// If there is not any valid for that cell program should go to back stage, [backtracking]
 					if(grid.getCellValue(rowIter, colIter) == 0)
 						return false;
 				}
 			}
 		}
 
-		// Grid did not solved
 		return false;
 
 	}
@@ -312,7 +296,7 @@ class SudokuSolver{
 
 		statsPrint();
 		if(success)
-			cout<<"QED. Your puzzle has been solved!\n\n";		// quod erat demonstrandum [what was to be shown]
+			cout<<"QED. Your puzzle has been solved!\n\n";		
 		else
 			cout <<"There is not any correct answer for this puzzle :( \n";
 	}
