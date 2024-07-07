@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include <cstdlib>
-//#include <Windows.h>
+#include <Windows.h>
 using namespace std;
 
 class SudokuGrid{
